@@ -123,7 +123,7 @@ The following parameters can be adjusted in `config/settings.py`:
 
 ## AWS Lambda Deployment
 
-Build and deploy the Docker image:
+Build and deploy the Docker image with the lambda function:
 
 ```bash
 chmod +x build_deploy.sh
