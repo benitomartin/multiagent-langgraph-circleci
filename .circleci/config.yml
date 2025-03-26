@@ -84,8 +84,8 @@ jobs:
       - run:
           name: Create venv and install dependencies
           command: |
-            source .venv/bin/activate
             uv sync --all-extras
+            source .venv/bin/activate
       
       - run:
           name: Run ruff
