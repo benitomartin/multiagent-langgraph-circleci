@@ -1,12 +1,78 @@
+# version: 2.1
+
+# orbs:
+#   aws-cli: circleci/aws-cli@5.2.0
+
+# jobs:
+#   build-deploy:
+#     machine:  # Use a machine executor instead of a Docker executor
+#       image: ubuntu-2204:current
+#     steps:
+#       - checkout  # Checkout the code from the repository
+      
+#       - run:
+#           name: Install UV
+#           command: |
+#             curl -LsSf https://astral.sh/uv/install.sh | sh
+      
+#       - run:
+#           name: Create venv and install dependencies
+#           command: |
+#             uv sync --all-extras
+      
+#       - run:
+#           name: Run tests
+#           command: |
+#             uv run pytest -s
+
+#       - run:
+#           name: Create .env file
+#           command: |
+#             echo "SERPER_API_KEY=${SERPER_API_KEY}" > .env
+#             echo "OPENAI_API_KEY=${OPENAI_API_KEY}" >> .env
+#             echo "AWS_REGION=${AWS_REGION}" >> .env
+#             echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> .env
+#             echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> .env
+#             echo "AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" >> .env
+#             echo "REPOSITORY_NAME=${REPOSITORY_NAME}" >> .env
+#             echo "IMAGE_NAME=${IMAGE_NAME}" >> .env
+#             echo "LAMBDA_FUNCTION_NAME=${LAMBDA_FUNCTION_NAME}" >> .env
+#             echo "ROLE_NAME=${ROLE_NAME}" >> .env
+#             echo "ROLE_POLICY_NAME=${ROLE_POLICY_NAME}" >> .env
+
+#       - run:
+#           name: Start Docker
+#           command: |
+#             sudo systemctl start docker
+#             docker version  # Verify Docker is running
+
+#       - aws-cli/setup:
+#           profile_name: default
+      
+#       - run:
+#           name: Deploy to AWS
+#           command: |
+#             chmod +x build_deploy.sh
+#             ./build_deploy.sh
+
+# workflows:
+#   version: 2
+#   deploy:
+#     jobs:
+#       - build-deploy:
+#           context: aws
+
+
 version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@5.2.0
+  docker: circleci/docker@2.8.2
 
 jobs:
   build-deploy:
-    machine:  # Use a machine executor instead of a Docker executor
-      image: ubuntu-2204:current
+    docker:
+      - image: cimg/python:3.12
     steps:
       - checkout  # Checkout the code from the repository
       
@@ -40,11 +106,16 @@ jobs:
             echo "ROLE_NAME=${ROLE_NAME}" >> .env
             echo "ROLE_POLICY_NAME=${ROLE_POLICY_NAME}" >> .env
 
-      - run:
-          name: Start Docker
-          command: |
-            sudo systemctl start docker
-            docker version  # Verify Docker is running
+      - setup_remote_docker:
+          version: 20.10.12
+          docker_layer_caching: true
+      
+      - docker/publish:
+          image: "$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+          remote-docker-version: 20.10.12
+          update-description: true
+          use-buildkit: true
+          use-remote-docker: true
 
       - aws-cli/setup:
           profile_name: default
