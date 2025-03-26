@@ -39,6 +39,9 @@ jobs:
             echo "ROLE_NAME=${ROLE_NAME}" >> .env
             echo "ROLE_POLICY_NAME=${ROLE_POLICY_NAME}" >> .env
 
+      - aws-cli/setup:
+          profile_name: default
+      
       - run:
           name: Deploy to AWS
           command: |
