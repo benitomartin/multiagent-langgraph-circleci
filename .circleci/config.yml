@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Create venv and install dependencies
           command: |
-            uv sync
+            uv sync --all-extras
       - run:
           name: Run tests
           command: |
