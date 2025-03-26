@@ -2,23 +2,24 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@5.2.0
-  docker: circleci/docker@2.8.2
 
 jobs:
   build-deploy:
-    docker:
-      - image: cimg/python:3.12
+    machine:  # Use a machine executor instead of a Docker executor
+      image: ubuntu-2204:current
     steps:
       - checkout  # Checkout the code from the repository
-
+      
       - run:
           name: Install UV
           command: |
             curl -LsSf https://astral.sh/uv/install.sh | sh
+      
       - run:
           name: Create venv and install dependencies
           command: |
             uv sync --all-extras
+      
       - run:
           name: Run tests
           command: |
@@ -39,6 +40,12 @@ jobs:
             echo "ROLE_NAME=${ROLE_NAME}" >> .env
             echo "ROLE_POLICY_NAME=${ROLE_POLICY_NAME}" >> .env
 
+      - run:
+          name: Start Docker
+          command: |
+            sudo systemctl start docker
+            docker version  # Verify Docker is running
+
       - aws-cli/setup:
           profile_name: default
       
@@ -53,4 +60,4 @@ workflows:
   deploy:
     jobs:
       - build-deploy:
-          context: aws 
+          context: aws
