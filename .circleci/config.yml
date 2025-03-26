@@ -32,26 +32,17 @@ jobs:
       - run:
           name: Create .env file
           command: |
-            cat << EOF > .env
-            # API Keys
-            SERPER_API_KEY=${SERPER_API_KEY}
-            OPENAI_API_KEY=${OPENAI_API_KEY}
-
-            # AWS Configuration
-            AWS_REGION=${AWS_REGION}
-            AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-            AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-            AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}
-
-            # Repository and Image Configuration
-            REPOSITORY_NAME=${REPOSITORY_NAME}
-            IMAGE_NAME=${IMAGE_NAME}
-
-            # Lambda Configuration
-            LAMBDA_FUNCTION_NAME=${LAMBDA_FUNCTION_NAME}
-            ROLE_NAME=${ROLE_NAME}
-            ROLE_POLICY_NAME=${ROLE_POLICY_NAME}
-            EOF
+            echo "SERPER_API_KEY=${SERPER_API_KEY}" > .env
+            echo "OPENAI_API_KEY=${OPENAI_API_KEY}" >> .env
+            echo "AWS_REGION=${AWS_REGION}" >> .env
+            echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> .env
+            echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> .env
+            echo "AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" >> .env
+            echo "REPOSITORY_NAME=${REPOSITORY_NAME}" >> .env
+            echo "IMAGE_NAME=${IMAGE_NAME}" >> .env
+            echo "LAMBDA_FUNCTION_NAME=${LAMBDA_FUNCTION_NAME}" >> .env
+            echo "ROLE_NAME=${ROLE_NAME}" >> .env
+            echo "ROLE_POLICY_NAME=${ROLE_POLICY_NAME}" >> .env
 
       - run:
           name: Deploy to AWS
