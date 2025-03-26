@@ -107,7 +107,7 @@ jobs:
             echo "ROLE_POLICY_NAME=${ROLE_POLICY_NAME}" >> .env
 
       - setup_remote_docker:
-          version: 20.10.12
+          # version: 20.10.12
           docker_layer_caching: true
       
       - aws-cli/setup:
