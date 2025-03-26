@@ -74,7 +74,7 @@ jobs:
     docker:
       - image: cimg/python:3.12
     steps:
-      - checkout  # Checkout the code from the repository
+      - checkout  
       
       - run:
           name: Install UV
@@ -86,6 +86,11 @@ jobs:
           command: |
             uv sync --all-extras
       
+      - run:
+          name: Run ruff
+          command: |
+            ruff check --fix --unsafe-fixes .
+
       - run:
           name: Run tests
           command: |
