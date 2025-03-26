@@ -84,6 +84,7 @@ jobs:
       - run:
           name: Create venv and install dependencies
           command: |
+            source .venv/bin/activate
             uv sync --all-extras
       
       - run:
