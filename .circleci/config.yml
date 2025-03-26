@@ -1,0 +1,73 @@
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@3.1
+  docker: circleci/docker@2.2.0
+
+executors:
+  python-executor:
+    docker:
+      - image: cimg/python:3.12
+    resource_class: medium
+
+jobs:
+  build-deploy:
+    executor: python-executor
+    steps:
+      - checkout
+
+      - run:
+          name: Install UV
+          command: |
+            curl -LsSf https://astral.sh/uv/install.sh | sh
+      - run:
+          name: Create venv and install dependencies
+          command: |
+            uv sync
+      - run:
+          name: Run tests
+          command: |
+            uv run pytest -s
+
+  # deploy:
+  #   executor: python-executor
+  #   steps:
+  #     - checkout
+  #     - setup_remote_docker:
+  #         docker_layer_caching: true
+  #     - aws-cli/setup:
+  #         profile-name: default
+  #     - run:
+  #         name: Create .env file
+  #         command: |
+  #           echo "SERPER_API_KEY=${SERPER_API_KEY}" >> .env
+  #           echo "OPENAI_API_KEY=${OPENAI_API_KEY}" >> .env
+  #           echo "AWS_REGION=${AWS_REGION}" >> .env
+  #           echo "AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}" >> .env
+  #           echo "AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}" >> .env
+  #           echo "AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}" >> .env
+  #           echo "REPOSITORY_NAME=${REPOSITORY_NAME}" >> .env
+  #           echo "IMAGE_NAME=${IMAGE_NAME}" >> .env
+  #           echo "LAMBDA_FUNCTION_NAME=${LAMBDA_FUNCTION_NAME}" >> .env
+  #           echo "ROLE_NAME=${ROLE_NAME}" >> .env
+  #           echo "ROLE_POLICY_NAME=${ROLE_POLICY_NAME}" >> .env
+  #     - run:
+  #         name: Install UV and generate requirements
+  #         command: |
+  #           curl -LsSf https://astral.sh/uv/install.sh | sh
+  #           uv venv
+  #           source .venv/bin/activate
+  #           uv pip install -e .
+  #           uv pip freeze | grep -v "file:///" > lambda_function/requirements.txt
+  #     - run:
+  #         name: Deploy to AWS
+  #         command: |
+  #           chmod +x build_deploy.sh
+  #           ./build_deploy.sh
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build-deploy:
+          context: aws 

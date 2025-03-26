@@ -6,7 +6,7 @@ set -e
 # Load environment variables from .env file
 set -o allexport
 source .env
-set -o allexport
+set +o allexport
 
 echo "Environment variables loaded."
 

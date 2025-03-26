@@ -1,5 +1,3 @@
-import json
-
 from lambda_function.lambda_handler import lambda_handler
 
 
@@ -13,14 +11,13 @@ def test_lambda_handler():
     response = lambda_handler(event, None)
 
     # Print the response for testing
-    print("\nResponse:\n\n", json.loads(response["body"])["final_report"])
+    print("\nResponse:\n\n", response["body"]["final_report"])
 
 
     # Assertions to validate the response
     assert response["statusCode"] == 200
-    body = json.loads(response["body"])
-    assert "final_report" in body
-    assert "errors" in body
+    assert "final_report" in response["body"]
+    assert "errors" in response["body"]
+    assert isinstance(response["body"]["final_report"], str)
+    assert isinstance(response["body"]["errors"], list)
 
-if __name__ == "__main__":
-    test_lambda_handler()
