@@ -122,5 +122,4 @@ workflows:
   version: 2
   deploy:
     jobs:
-      - build-deploy:
-          context: aws
+      - build-deploy
