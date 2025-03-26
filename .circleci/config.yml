@@ -30,6 +30,30 @@ jobs:
             uv run pytest -s
 
       - run:
+          name: Create .env file
+          command: |
+            cat << EOF > .env
+            # API Keys
+            SERPER_API_KEY=${SERPER_API_KEY}
+            OPENAI_API_KEY=${OPENAI_API_KEY}
+
+            # AWS Configuration
+            AWS_REGION=${AWS_REGION}
+            AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+            AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+            AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}
+
+            # Repository and Image Configuration
+            REPOSITORY_NAME=${REPOSITORY_NAME}
+            IMAGE_NAME=${IMAGE_NAME}
+
+            # Lambda Configuration
+            LAMBDA_FUNCTION_NAME=${LAMBDA_FUNCTION_NAME}
+            ROLE_NAME=${ROLE_NAME}
+            ROLE_POLICY_NAME=${ROLE_POLICY_NAME}
+            EOF
+
+      - run:
           name: Deploy to AWS
           command: |
             chmod +x build_deploy.sh
