@@ -84,14 +84,12 @@ jobs:
       - run:
           name: Create venv and install dependencies
           command: |
-            uv venv .venv
-            source .venv/bin/activate
             uv sync --all-extras
 
       - run:
           name: Run ruff
           command: |
-            ruff check --fix --unsafe-fixes .
+            uv run ruff check --fix --unsafe-fixes .
 
       - run:
           name: Run tests
