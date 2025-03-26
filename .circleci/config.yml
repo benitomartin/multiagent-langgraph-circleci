@@ -17,8 +17,7 @@ jobs:
       - checkout
 
       - run:
-          name: Install UV
-          command: |
+          name: Install uv
             curl -LsSf https://astral.sh/uv/install.sh | sh
       - run:
           name: Create venv and install dependencies
