@@ -75,6 +75,7 @@ jobs:
       - image: cimg/python:3.12
     steps:
       - checkout  
+      - setup_remote_docker
       
       - run:
           name: Install UV
@@ -111,8 +112,6 @@ jobs:
             echo "ROLE_NAME=${ROLE_NAME}" >> .env
             echo "ROLE_POLICY_NAME=${ROLE_POLICY_NAME}" >> .env
 
-      # - setup_remote_docker:
-      #     docker_layer_caching: true
       
       - aws-cli/setup:
           profile_name: default
