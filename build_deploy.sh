@@ -22,7 +22,7 @@ fi
 # Create a clean requirements.txt without local project dependency
 # To make your image compatible with Lambda, you must use the --provenance=false option.
 echo "Generating requirements.txt..."
-uv pip freeze | grep -v "file:///" > lambda_function/requirements.txt
+uv pip freeze --exclude-editable > lambda_function/requirements.txt
 
 # Build Docker image
 echo "Building Docker image ${IMAGE_NAME}..."

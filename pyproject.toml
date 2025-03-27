@@ -58,5 +58,5 @@ known-first-party = ["src"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = ["test_*.py"]
-addopts = "-ra -q"
+addopts = "-ra -q -s"
 

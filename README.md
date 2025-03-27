@@ -55,7 +55,7 @@ A multi-agent research system using LangGraph for automated research and report 
 
 4. Install the required packages:
    ```bash
-   uv pip install -e .
+   uv sync --all-extras
    ```
 
 5. Create a `.env` file in the root directory:
@@ -93,7 +93,7 @@ To run the research graph locally:
 ```bash
 uv run src/graph/research_graph.py \
    --query "What are the benefits of using AWS Cloud Services?" \
-   --confidence-score 0.85 \
+   --confidence-threshold 0.85 \
    --max-retries 3 \
    --add-max-results 2
 ```
@@ -133,5 +133,3 @@ chmod +x build_deploy.sh
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-

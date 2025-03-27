@@ -5,16 +5,17 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import END, StateGraph
 
 from config.settings import (
-    ADD_MAX_RESULTS,
     AWS_ACCESS_KEY_ID,
     AWS_REGION,
     AWS_SECRET_ACCESS_KEY,
-    CONFIDENCE_SCORE,
     FACT_CHECK_MODEL,
+    SUMMARIZATION_MODEL,
+    CONFIDENCE_THRESHOLD,
     MAX_RETRIES,
+    ADD_MAX_RESULTS,
     OPENAI_API_KEY,
     SERPER_API_KEY,
-    SUMMARIZATION_MODEL,
+
 )
 from src.agents.fact_checking_agent import FactCheckingAgent
 from src.agents.report_generation_agent import ReportGenerationAgent
@@ -24,10 +25,12 @@ from src.agents.summarization_agent import SummarizationAgent
 from src.models.schemas import ResearchState
 
 
-def build_research_graph(serper_api_key: str, openai_api_key: str,
-                        confidence_score: float = CONFIDENCE_SCORE,
-                        max_retries: int = MAX_RETRIES,
-                        add_max_results: int = ADD_MAX_RESULTS):
+def build_research_graph(serper_api_key: str = SERPER_API_KEY, 
+                         openai_api_key: str = OPENAI_API_KEY,
+                         confidence_threshold: float = CONFIDENCE_THRESHOLD,
+                         max_retries: int = MAX_RETRIES,
+                         add_max_results: int = ADD_MAX_RESULTS):
+    
     # Initialize different models for Summarization and Fact-Checking agents
     fact_check_llm = ChatOpenAI(model=FACT_CHECK_MODEL, api_key=openai_api_key)
     summarization_llm = ChatBedrock(
@@ -41,7 +44,7 @@ def build_research_graph(serper_api_key: str, openai_api_key: str,
     # Initialize agents
     search_agent = SearchAgent(serper_api_key)
     summarization_agent = SummarizationAgent(summarization_llm)
-    fact_checking_agent = FactCheckingAgent(fact_check_llm)
+    fact_checking_agent = FactCheckingAgent(fact_check_llm, confidence_threshold, max_retries, add_max_results)
     report_generation_agent = ReportGenerationAgent(summarization_llm)
     stop_workflow_agent = StopWorkflowAgent()
 
@@ -72,9 +75,9 @@ def build_research_graph(serper_api_key: str, openai_api_key: str,
         if state.get("errors"):
             return "Stop Workflow"
 
-        if confidence_score < CONFIDENCE_SCORE:
-            if count >= MAX_RETRIES:
-                print(f"Maximum retry attempts ({MAX_RETRIES}) reached. Stopping workflow.")
+        if confidence_score < confidence_threshold:
+            if count >= max_retries:
+                print(f"Maximum retry attempts ({max_retries}) reached. Stopping workflow.")
                 return "Stop Workflow"
             return "Search"  # Go back to search if retries are available
 
@@ -118,7 +121,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Run research graph with custom parameters')
     parser.add_argument('--query', type=str, default="What are the benefits of using AWS Cloud Services?",
                       help='Research query')
-    parser.add_argument('--confidence-score', type=float, default=CONFIDENCE_SCORE,
+    parser.add_argument('--confidence-threshold', type=float, default=CONFIDENCE_THRESHOLD,
                       help='Confidence score threshold (0-1)')
     parser.add_argument('--max-retries', type=int, default=MAX_RETRIES,
                       help='Maximum number of retries')
@@ -130,7 +133,7 @@ if __name__ == "__main__":
     graph = build_research_graph(
         SERPER_API_KEY,
         OPENAI_API_KEY,
-        confidence_score=args.confidence_score,
+        confidence_threshold=args.confidence_threshold,
         max_retries=args.max_retries,
         add_max_results=args.add_max_results
     )

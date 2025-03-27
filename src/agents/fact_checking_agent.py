@@ -1,6 +1,5 @@
 import json
 
-from config.settings import ADD_MAX_RESULTS, CONFIDENCE_SCORE, MAX_RETRIES
 from src.models.schemas import FactCheckResult, ResearchState
 from src.utils.chain_builder import ChainBuilder
 from src.utils.error_handler import ErrorHandler
@@ -8,8 +7,12 @@ from src.utils.prompt_templates import PromptTemplates
 
 
 class FactCheckingAgent:
-    def __init__(self, llm):
+    def __init__(self, llm, confidence_threshold: float, max_retries: int, add_max_results: int):
         self.chain_builder = ChainBuilder(llm)
+        self.confidence_threshold = confidence_threshold    # Store the passed confidence threshold
+        self.max_retries = max_retries                      # Store the max_retries value
+        self.add_max_results = add_max_results              # Store the add_max_results value
+        
 
     def execute(self, state: ResearchState) -> ResearchState:
         summary = state.get("summarized_content")
@@ -45,15 +48,15 @@ class FactCheckingAgent:
             print("Retry Count:", retry_count)
             print("Max Results:", max_results)
 
-            if confidence_score < CONFIDENCE_SCORE:
-                if retry_count < MAX_RETRIES:
+            if confidence_score < self.confidence_threshold:
+                if retry_count < self.max_retries:
                     state["search_retries"] = retry_count + 1
 
                     # Only increase max_results if we're NOT about to hit the retry cap
-                    if state["search_retries"] < MAX_RETRIES:
+                    if state["search_retries"] < self.max_retries:
                         print(f"Retrying search number {state['search_retries']}")
 
-                        state["max_results"] = max_results + ADD_MAX_RESULTS
+                        state["max_results"] = max_results + self.add_max_results
                         print(f"Increasing max_results to: {state['max_results']}")
 
             state["fact_checked_results"] = fact_check_results

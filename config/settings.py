@@ -17,9 +17,9 @@ FACT_CHECK_MODEL = "gpt-4o-mini"
 SUMMARIZATION_MODEL = "anthropic.claude-3-haiku-20240307-v1:0"
 
 # Workflow Settings
-CONFIDENCE_SCORE = 0.8
+CONFIDENCE_THRESHOLD = 0.95
+MAX_RETRIES = 1
 ADD_MAX_RESULTS = 2
-MAX_RETRIES = 2
 
 # Validate required environment variables
 if not SERPER_API_KEY:

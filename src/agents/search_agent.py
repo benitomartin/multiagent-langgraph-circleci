@@ -1,5 +1,38 @@
-from langchain_community.utilities import GoogleSerperAPIWrapper
+# from langchain_community.utilities import GoogleSerperAPIWrapper
 
+
+# class SearchAgent:
+#     def __init__(self, serper_api_key: str):
+#         self.search = GoogleSerperAPIWrapper(serper_api_key=serper_api_key, k=3)
+
+#     def execute(self, state: dict, k: int = 3) -> dict:
+#         query = state.get("query")
+#         max_results = state.get("max_results", k)
+
+#         if not query:
+#             return {**state, "errors": ["Search agent error: No query provided"]}
+
+#         try:
+#             self.search.k = max_results
+#             raw_results = self.search.results(query=query)
+
+#             results = [
+#                 {
+#                     "title": r.get("title", ""),
+#                     "url": r.get("link", ""),
+#                     "snippet": r.get("snippet", ""),
+#                 }
+#                 for r in raw_results.get("organic", [])
+#             ]
+#             print(f"Search agent found {len(results)} results with max results equal to {max_results}")
+#             print(f"Search Results: {results}")
+
+#             return {**state, "search_results": results}
+#         except Exception as e:
+#             return {**state, "errors": [f"Search agent error: {str(e)}"]}
+
+from langchain_community.utilities import GoogleSerperAPIWrapper
+from src.models.schemas import SearchResult  
 
 class SearchAgent:
     def __init__(self, serper_api_key: str):
@@ -16,17 +49,20 @@ class SearchAgent:
             self.search.k = max_results
             raw_results = self.search.results(query=query)
 
+            # Convert raw search results to instances of the SearchResult model
             results = [
-                {
-                    "title": r.get("title", ""),
-                    "url": r.get("link", ""),
-                    "snippet": r.get("snippet", ""),
-                }
+                SearchResult(
+                    title=r.get("title", ""),
+                    url=r.get("link", ""),
+                    snippet=r.get("snippet", "")
+                )
                 for r in raw_results.get("organic", [])
             ]
+            
             print(f"Search agent found {len(results)} results with max results equal to {max_results}")
-            print(f"Search Results: {results}")
+            print(f"Search Results: {[result.model_dump() for result in results]}")  
 
-            return {**state, "search_results": results}
+            # Return the list of SearchResult objects
+            return {**state, "search_results": [result.model_dump() for result in results]}  
         except Exception as e:
             return {**state, "errors": [f"Search agent error: {str(e)}"]}

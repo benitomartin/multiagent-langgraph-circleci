@@ -4,7 +4,7 @@ from lambda_function.lambda_handler import lambda_handler
 def test_lambda_handler():
     # Create a mock event to simulate an AWS Lambda invocation
     event = {
-        "query": "What is the capital of France?"
+        "query": "What is AWS?"
     }
 
     # Call the lambda_handler function

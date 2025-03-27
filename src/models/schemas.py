@@ -19,10 +19,6 @@ class SearchResult(BaseModel):
     title: str = Field(description="The title of the search result")
     url: str = Field(description="The URL of the search result")
     snippet: str = Field(description="A brief excerpt or summary of the search result")
-
-class SearchResults(BaseModel):
-    results: List[SearchResult] = Field(description="List of search results related to the query")
-
 class Summary(BaseModel):
     main_points: str = Field(description="List of key points from the search results")
     benefits: str = Field(description="List of specific benefits of the search results")
