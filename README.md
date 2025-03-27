@@ -104,7 +104,7 @@ To invoke the deployed Lambda function:
 ```bash
 aws lambda invoke \
     --function-name langgraph-lambda-function \
-    --payload '{"query": "What are the benefits of using AWS Cloud Services?"}' \
+    --payload '{"query": "What are the benefits of using CircleCI?"}' \
     --region eu-central-1 \
     --cli-binary-format raw-in-base64-out \
     response.json && \
