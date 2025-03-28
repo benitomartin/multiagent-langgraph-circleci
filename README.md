@@ -10,10 +10,10 @@ The project has been developed as part of the following [blog](XXX)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Configuration](#configuration)
-- [Local Execution](#local-execution)
-- [AWS Lambda Deployment](#aws-lambda-deployment)
-- [Lambda Invocation](#lambda-invocation)
+  - [Configuration](#configuration)
+  - [Local Execution](#local-execution)
+  - [AWS Lambda Deployment](#aws-lambda-deployment)
+  - [AWS Lambda Invocation](#aws-lambda-invocation)
 - [License](#license)
 
 ## Features
@@ -121,7 +121,7 @@ chmod +x build_deploy.sh
 ./build_deploy.sh
 ```
 
-### Lambda Invocation
+### AWS Lambda Invocation
 
 To invoke the deployed Lambda function:
 
