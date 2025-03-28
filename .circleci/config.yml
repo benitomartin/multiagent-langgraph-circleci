@@ -94,7 +94,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            uv run pytest -s
+            uv run pytest
 
       - run:
           name: Create .env file

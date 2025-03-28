@@ -2,6 +2,8 @@
 
 A multi-agent research system using LangGraph for automated research and report generation. The system uses multiple AI agents to search, summarize, fact-check, and generate comprehensive research reports on any given topic.
 
+The project has been developed as part of the following [blog](XXX)
+
 ## Table of Contents
 
 - [Features](#features)
@@ -87,9 +89,20 @@ A multi-agent research system using LangGraph for automated research and report 
 
 ## Usage
 
+### Configuration
+
+The following parameters can be adjusted in `config/settings.py`:
+
+- `CONFIDENCE_THRESHOLD`: Threshold for confidence in fact-checking
+- `MAX_RETRIES`: Maximum number of retries for the search agent
+- `ADD_MAX_RESULTS`: Number of search results to add in each retry
+- `FACT_CHECK_MODEL`: Model used for fact-checking (default: "gpt-4-mini")
+- `SUMMARIZATION_MODEL`: Model used for summarization (default: "anthropic.claude-3-haiku")
+
 ### Local Execution
 
 To run the research graph locally:
+
 ```bash
 uv run src/graph/research_graph.py \
    --query "What are the benefits of using AWS Cloud Services?" \
@@ -98,9 +111,19 @@ uv run src/graph/research_graph.py \
    --add-max-results 2
 ```
 
+### AWS Lambda Deployment
+
+Build and deploy the Docker image with the lambda function:
+
+```bash
+chmod +x build_deploy.sh
+./build_deploy.sh
+```
+
 ### Lambda Invocation
 
 To invoke the deployed Lambda function:
+
 ```bash
 aws lambda invoke \
     --function-name langgraph-lambda-function \
@@ -109,25 +132,6 @@ aws lambda invoke \
     --cli-binary-format raw-in-base64-out \
     response.json && \
     cat response.json | jq
-```
-
-## Configuration
-
-The following parameters can be adjusted in `config/settings.py`:
-
-- `CONFIDENCE_SCORE`: Threshold for confidence in fact-checking (default: 0.8)
-- `MAX_RETRIES`: Maximum number of retries for the search agent (default: 2)
-- `ADD_MAX_RESULTS`: Number of search results to add in each retry (default: 2)
-- `FACT_CHECK_MODEL`: Model used for fact-checking (default: "gpt-4-mini")
-- `SUMMARIZATION_MODEL`: Model used for summarization (default: "anthropic.claude-3-haiku")
-
-## AWS Lambda Deployment
-
-Build and deploy the Docker image with the lambda function:
-
-```bash
-chmod +x build_deploy.sh
-./build_deploy.sh
 ```
 
 ## License

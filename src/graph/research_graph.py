@@ -139,4 +139,4 @@ if __name__ == "__main__":
     )
 
     result = graph.invoke({"query": args.query})
-    print(f"Research completed. Final report:\n{result.get('final_report', '')}")
+    # print(f"Research completed. Final report:\n{result.get('final_report', '')}")
