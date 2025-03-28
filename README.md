@@ -11,8 +11,9 @@ The project has been developed as part of the following [blog](XXX)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
+- [Local Execution](#local-execution)
 - [AWS Lambda Deployment](#aws-lambda-deployment)
-- [Contributing](#contributing)
+- [Lambda Invocation](#lambda-invocation)
 - [License](#license)
 
 ## Features
