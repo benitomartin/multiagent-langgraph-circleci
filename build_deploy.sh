@@ -69,6 +69,8 @@ if ! aws iam get-role --role-name ${ROLE_NAME} --region ${AWS_REGION} 2>/dev/nul
     }' --region ${AWS_REGION}
     
     echo "IAM role created and policies attached."
+    echo "Waiting for IAM role to propagate (10 seconds)..."
+    sleep 10
 else
     echo "IAM role ${ROLE_NAME} already exists. Skipping role creation."
 fi
