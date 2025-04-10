@@ -123,7 +123,7 @@ chmod +x build_deploy.sh
 
 ### AWS Lambda Invocation
 
-To invoke the deployed Lambda function add your region and run:
+To invoke the deployed Lambda function add your region and run the following command:
 
 ```bash
 aws lambda invoke \
