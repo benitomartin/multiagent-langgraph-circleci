@@ -129,7 +129,7 @@ To invoke the deployed Lambda function:
 aws lambda invoke \
     --function-name langgraph-lambda-function \
     --payload '{"query": "What are the benefits of using CircleCI?"}' \
-    --region eu-central-1 \
+    --region <your_region> \
     --cli-binary-format raw-in-base64-out \
     response.json && \
     cat response.json | jq
