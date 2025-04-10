@@ -36,32 +36,39 @@ The project has been developed as part of the following [blog](XXX)
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/benitomartin/multiagent-langgraph-circleci.git
    cd multiagent-langgraph-circleci
    ```
 
 2. Create a virtual environment:
+
    ```bash
    uv venv
    ```
 
 3. Activate the virtual environment:
    - On Windows:
+
      ```bash
      .venv\Scripts\activate
      ```
+
    - On Unix or MacOS:
+
      ```bash
      source .venv/bin/activate
      ```
 
 4. Install the required packages:
+
    ```bash
    uv sync --all-extras
    ```
 
 5. Create a `.env` file in the root directory:
+
    ```plaintext
    # API Keys
    SERPER_API_KEY=your_serper_key_here                
