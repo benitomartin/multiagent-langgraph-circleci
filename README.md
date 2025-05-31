@@ -2,7 +2,7 @@
 
 A multi-agent research system using LangGraph for automated research and report generation. The system uses multiple AI agents to search, summarize, fact-check, and generate comprehensive research reports on any given topic.
 
-The project has been developed as part of the following [blog](XXX)
+The project has been developed as part of the following [blog](https://circleci.com/blog/end-to-end-testing-and-deployment-of-a-multi-agent-ai-system/)
 
 ## Table of Contents
 
