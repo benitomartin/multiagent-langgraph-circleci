@@ -1,10 +1,34 @@
 # Multi-Agent LangGraph Research System
 
 <div align="center">
-    <img src="images/collaborative _multi_agent_ai_system_with_langgraph.png" width="300"/>
+    <img src="images/collaborative _multi_agent_ai_system_with_langgraph.png" alt="Multi-Agent LangGraph Architecture">
 </div>
 
-A multi-agent research system using LangGraph for automated research and report generation. The system uses multiple AI agents to search, summarize, fact-check, and generate comprehensive research reports on any given topic.
+<div align="center">
+    <a href="https://www.python.org/downloads/release/python-3120/"><img src="https://img.shields.io/badge/python-3.12+-blue.svg"/></a>
+    <a href="https://langchain-ai.github.io/langgraph/"><img src="https://img.shields.io/badge/LangGraph-Multi%20Agent-ff6b6b"/></a>
+    <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-Containerized-blue?logo=docker&logoColor=white"/></a>
+    <a href="https://aws.amazon.com/lambda/"><img src="https://img.shields.io/badge/AWS%20Lambda-Serverless-orange"/></a>
+</div>
+
+<div align="center">
+    <a href="https://github.com/astral-sh/uv"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json"/></a>
+    <a href="https://pydantic.dev/"><img src="https://img.shields.io/badge/Pydantic-Data%20Validation-e92063"/></a>
+    <a href="https://github.com/features/actions"><img src="https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-2088ff?logo=github-actions&logoColor=white"/></a>
+    <a href="http://mypy-lang.org/"><img src="http://www.mypy-lang.org/static/mypy_badge.svg"/></a>
+    <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json"/></a>
+    <a href="https://docs.pytest.org/"><img src="https://img.shields.io/badge/pytest-enabled-brightgreen"/></a>
+    <a href="https://github.com/pre-commit/pre-commit"><img src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white"/></a>
+    <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg"/></a>
+</div>
+
+<p align="center">
+    <em>A multi-agent research system using LangGraph for automated research and report generation</em>
+</p>
+
+---
+
+Build, test, and deploy a multi-agent AI system using LangGraph, Docker, AWS Lambda, and CircleCI. The system uses a research-driven AI workflow where different agents,such as fact-checking, summarization, and search agents, work together seamlessly. This application is packaged into a Docker container, deployed to AWS Lambda, and the entire pipeline is run using CircleCI.
 
 The project has been developed as part of the following [blog](https://circleci.com/blog/end-to-end-testing-and-deployment-of-a-multi-agent-ai-system/)
 
