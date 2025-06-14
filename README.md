@@ -7,7 +7,7 @@
 <div align="center">
     <a href="https://www.python.org/downloads/release/python-3120/"><img src="https://img.shields.io/badge/python-3.12+-blue.svg"/></a>
     <a href="https://github.com/astral-sh/uv"><img src="https://img.shields.io/badge/uv-Package%20Manager-blue"/></a>
-    <a href="https://langchain-ai.github.io/langgraph/"><img src="https://img.shields.io/badge/LangGraph-Multi%20Agent-ff6b6b"/></a>
+    <a href="https://langchain-ai.github.io/langgraph/"><img src="https://img.shields.io/badge/LangGraph-Agentic-ff6b6b"/></a>
     <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-Containerized-blue"/></a>
     <a href="https://aws.amazon.com/lambda/"><img src="https://img.shields.io/badge/AWS%20Lambda-Serverless-orange"/></a>
     <a href="https://pydantic.dev/"><img src="https://img.shields.io/badge/Pydantic-Data%20Validation-e92063"/></a>
