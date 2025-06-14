@@ -13,7 +13,7 @@
     <a href="https://pydantic.dev/"><img src="https://img.shields.io/badge/Pydantic-Data%20Validation-e92063"/></a>
 </div>
 <div align="center">
-    <a href="https://github.com/features/actions"><img src="https://img.shields.io/badge/CI-passed-2088ff"/></a>
+    <a href="https://github.com/features/actions"><img src="https://img.shields.io/badge/CI/CD-passed-2088ff"/></a>
     <a href="http://mypy-lang.org/"><img src="https://img.shields.io/badge/mypy-passed-blue"/></a>
     <a href="https://github.com/astral-sh/ruff"><img src="https://img.shields.io/badge/ruff-passed-red"/></a>
     <a href="https://docs.pytest.org/"><img src="https://img.shields.io/badge/pytest-passed-brightgreen"/></a>
